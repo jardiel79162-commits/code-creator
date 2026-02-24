@@ -1,34 +1,46 @@
-import { cn } from '@/lib/utils';
-import { Language, languages } from '@/lib/codeTemplates';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { languages } from "@/lib/codeTemplates";
 
 interface LanguageSelectorProps {
-  selected: Language;
-  onSelect: (language: Language) => void;
+  language?: string;
+  setLanguage?: (lang: string) => void;
+  selected?: string;
+  onSelect?: (lang: string) => void;
+  value?: string;
+  onChange?: (lang: string) => void;
+  selectedLanguage?: string;
+  onLanguageSelect?: (lang: string) => void;
 }
 
-export function LanguageSelector({ selected, onSelect }: LanguageSelectorProps) {
+export const LanguageSelector: React.FC<LanguageSelectorProps> = (props) => {
+  // Identifica dinamicamente as props para manter a compatibilidade com o código existente
+  const selectedValue = props.language || props.selected || props.value || props.selectedLanguage;
+  const onChange = props.setLanguage || props.onSelect || props.onChange || props.onLanguageSelect;
+
   return (
-    <div className="flex flex-wrap gap-3">
-      {languages.map((lang) => (
-        <button
-          key={lang.value}
-          onClick={() => onSelect(lang.value)}
-          className={cn(
-            "group relative flex items-center gap-2 rounded-lg px-4 py-3 font-medium transition-all duration-300",
-            "border border-border hover:border-primary/50",
-            selected === lang.value
-              ? "border-primary bg-primary/10 text-primary glow-primary"
-              : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
-          )}
-        >
-          <span className="text-lg">{lang.icon}</span>
-          <span>{lang.label}</span>
+    <div className="space-y-3 w-full">
+      <label className="text-sm font-semibold leading-none mb-2 block">
+        Escolha a Linguagem
+      </label>
+      <div className="flex flex-wrap gap-2">
+        {languages.map((lang: any) => {
+          const id = lang.id || lang.value || lang;
+          const label = lang.label || lang.name || lang;
           
-          {selected === lang.value && (
-            <span className="absolute -bottom-px left-1/2 h-0.5 w-8 -translate-x-1/2 bg-primary" />
-          )}
-        </button>
-      ))}
+          return (
+            <Button
+              key={id}
+              variant={selectedValue === id ? "default" : "outline"}
+              onClick={() => onChange && onChange(id)}
+              className="transition-all duration-200"
+              type="button"
+            >
+              {label}
+            </Button>
+          );
+        })}
+      </div>
     </div>
   );
-}
+};
