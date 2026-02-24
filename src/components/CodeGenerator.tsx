@@ -11,8 +11,8 @@ const CodeGenerator = () => {
   const generatedCode = generateCode ? generateCode(language, type) : "// Code will appear here";
 
   return (
-    <div className="space-y-8 max-w-4xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-8 max-w-4xl mx-auto p-6 bg-background/40 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <LanguageSelector selected={language} onChange={setLanguage} />
         <TypeSelector selected={type} onChange={setType} />
       </div>
