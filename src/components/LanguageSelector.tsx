@@ -8,12 +8,12 @@ interface Props {
 const LanguageSelector = ({ selected, onChange }: Props) => {
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium">Language</label>
+      <label className="text-sm font-bold tracking-wide drop-shadow-sm text-foreground">Language</label>
       <Select value={selected} onValueChange={onChange}>
-        <SelectTrigger>
+        <SelectTrigger className="bg-background/50 backdrop-blur-sm border-white/20 font-medium">
           <SelectValue placeholder="Select language" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-background/80 backdrop-blur-md border-white/20">
           <SelectItem value="typescript">TypeScript</SelectItem>
           <SelectItem value="javascript">JavaScript</SelectItem>
           <SelectItem value="python">Python</SelectItem>
